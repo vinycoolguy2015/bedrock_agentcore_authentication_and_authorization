@@ -598,19 +598,7 @@ deploy_multi_backend_mcp() {
     save_output "SALES_LAMBDA_ARN" "$SALES_LAMBDA_ARN"
     log_success "Sales Lambda: ${SALES_LAMBDA_ARN}"
 
-    # --- Deploy JWT Authorizer Lambda ---
-    log_info "Deploying JWT Authorizer Lambda..."
-    local auth_zip="${SCRIPT_DIR}/lambdas/jwt-authorizer/function.zip"
-    zip_lambda "${SCRIPT_DIR}/lambdas/jwt-authorizer" "$auth_zip"
-    AUTHORIZER_LAMBDA_ARN=$(create_lambda_if_not_exists \
-        "$AUTHORIZER_LAMBDA_NAME" "$auth_zip" "index.handler" \
-        "arn:aws:iam::${ACCOUNT_ID}:role/${LAMBDA_ROLE_NAME}" \
-        "python3.12" \
-        "COGNITO_REGION=${AWS_REGION},COGNITO_USER_POOL_ID=${COGNITO_D1_POOL_ID},COGNITO_APP_CLIENT_ID=${COGNITO_D1_M2M_CLIENT_ID}")
-    save_output "AUTHORIZER_LAMBDA_ARN" "$AUTHORIZER_LAMBDA_ARN"
-    log_success "JWT Authorizer Lambda deployed"
-
-    # --- Products API Gateway (OAuth 2.0 / JWT Authorizer) ---
+    # --- Products API Gateway (OAuth 2.0 / Native JWT Authorizer) ---
     log_info "Creating Products API Gateway..."
     PRODUCTS_API_ID=$(aws apigatewayv2 create-api \
         --name "$PRODUCTS_API_NAME" \

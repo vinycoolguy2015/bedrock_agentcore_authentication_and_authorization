@@ -288,7 +288,7 @@ done
 # =============================================================================
 log_info "Deleting Lambda functions..."
 for fn in "$TOS_LAMBDA_NAME" "$PRODUCTS_LAMBDA_NAME" "$SALES_LAMBDA_NAME" \
-          "$INVENTORY_LAMBDA_NAME" "$AUTHORIZER_LAMBDA_NAME" \
+          "$INVENTORY_LAMBDA_NAME" \
           "${AGENT_PROXY_LAMBDA_NAME:-agentcore-mcp-ws-agent-proxy}"; do
     aws lambda delete-function --function-name "$fn" --region "$AWS_REGION" 2>/dev/null || true
 done
@@ -372,7 +372,7 @@ log_info "Deleting CloudWatch log groups..."
 
 # Lambda log groups
 for fn in "$TOS_LAMBDA_NAME" "$PRODUCTS_LAMBDA_NAME" "$SALES_LAMBDA_NAME" \
-          "$INVENTORY_LAMBDA_NAME" "$AUTHORIZER_LAMBDA_NAME" \
+          "$INVENTORY_LAMBDA_NAME" \
           "${AGENT_PROXY_LAMBDA_NAME:-agentcore-mcp-ws-agent-proxy}"; do
     aws logs delete-log-group \
         --log-group-name "/aws/lambda/${fn}" \
