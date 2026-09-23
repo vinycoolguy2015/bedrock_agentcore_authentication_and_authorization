@@ -4,7 +4,9 @@ Build a multi-trust-domain retail agent using **Amazon Bedrock AgentCore**, **Ag
 
 ## Referennce
 https://aws.amazon.com/blogs/machine-learning/introducing-amazon-bedrock-agentcore-identity-securing-agentic-ai-at-scale/ - 
+
 https://aws.amazon.com/blogs/security/securing-ai-agents-with-amazon-bedrock-agentcore-identity/
+
 https://catalog.us-east-1.prod.workshops.aws/workshops/e777691e-4c73-430a-9cb0-67dd9f96142b/en-US/
 
 ## Workshop Overview
