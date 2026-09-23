@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AnyCompany Sales API",
+    "description": "API Gateway delivering Sales information for AnyCompany retail operations.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "{apiGatewayUrl}",
+      "description": "Sales API Gateway endpoint. Replace {apiGatewayUrl} with the actual API Gateway URL from CloudFormation outputs."
+    }
+  ],
+  "paths": {
+    "/sales": {
+      "get": {
+        "operationId": "getSalesRecords",
+        "summary": "Get all sales records",
+        "description": "Retrieve all sales records. Returns a list of sales transactions with product, quantity, price, and region data.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sales": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SaleRecord"
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/summary": {
+      "get": {
+        "operationId": "getSalesSummary",
+        "summary": "Get sales summary",
+        "description": "Retrieve an overall sales summary including total revenue, total units sold, total transactions, and average order value.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "total_revenue": { "type": "number" },
+                        "total_units_sold": { "type": "integer" },
+                        "total_transactions": { "type": "integer" },
+                        "average_order_value": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/by-product": {
+      "get": {
+        "operationId": "getSalesByProduct",
+        "summary": "Get sales grouped by product",
+        "description": "Retrieve sales data grouped by product. Optionally filter by a specific product ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "query",
+            "required": false,
+            "description": "Optional product ID to filter sales for (e.g., PROD-001)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sales_by_product": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "product_id": { "type": "string" },
+                          "total_revenue": { "type": "number" },
+                          "total_units": { "type": "integer" },
+                          "transactions": { "type": "integer" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sales/by-region": {
+      "get": {
+        "operationId": "getSalesByRegion",
+        "summary": "Get sales grouped by region",
+        "description": "Retrieve sales data grouped by geographic region. Optionally filter by a specific region.",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "description": "Optional region to filter (e.g., US-East, EU-West, AP-Southeast)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sales_by_region": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "region": { "type": "string" },
+                          "total_revenue": { "type": "number" },
+                          "total_units": { "type": "integer" },
+                          "transactions": { "type": "integer" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SaleRecord": {
+        "type": "object",
+        "properties": {
+          "sale_id": { "type": "string" },
+          "product_id": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "unit_price": { "type": "number" },
+          "total": { "type": "number" },
+          "date": { "type": "string" },
+          "region": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}

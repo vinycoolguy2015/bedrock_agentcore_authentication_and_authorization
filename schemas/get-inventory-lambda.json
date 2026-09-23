@@ -1,0 +1,21 @@
+{
+  "tools": [
+    {
+      "name": "getInventory",
+      "description": "Retrieve inventory data for all products or filter by product_id or status. Returns product stock levels, warehouse locations, and reorder thresholds.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "description": "Optional product ID to filter inventory for (e.g., PROD-001)"
+          },
+          "status": {
+            "type": "string",
+            "description": "Optional status filter: IN_STOCK, LOW_STOCK, or OUT_OF_STOCK"
+          }
+        }
+      }
+    }
+  ]
+}

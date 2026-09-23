@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AnyCompany Product Catalog API",
+    "description": "API Gateway delivering Product catalog information for AnyCompany retail operations.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "{apiGatewayUrl}",
+      "description": "Products API Gateway endpoint. Replace {apiGatewayUrl} with the actual API Gateway URL from CloudFormation outputs."
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "operationId": "getProducts",
+        "summary": "Get product catalog",
+        "description": "Retrieve all products in the catalog. Optionally filter by category.",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Filter by product category (e.g., Electronics, Apparel, Footwear, Home & Kitchen)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "product_id",
+            "in": "query",
+            "required": false,
+            "description": "Get a specific product by its product ID (e.g., PROD-001)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Product"
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": ["products/read"]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "description": "Unique product identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name"
+          },
+          "category": {
+            "type": "string",
+            "description": "Product category"
+          },
+          "price": {
+            "type": "number",
+            "description": "Product price in USD"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description"
+          },
+          "in_stock": {
+            "type": "boolean",
+            "description": "Whether the product is currently in stock"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "{tokenUrl}",
+            "scopes": {
+              "products/read": "Read access to product catalog"
+            }
+          }
+        }
+      }
+    }
+  }
+}

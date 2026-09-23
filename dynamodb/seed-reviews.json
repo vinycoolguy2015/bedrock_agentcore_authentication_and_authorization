@@ -1,0 +1,88 @@
+{
+  "agentcore-mcp-ws-customer-reviews": [
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "PROD-001"},
+          "review_id": {"S": "REV-001"},
+          "customer_name": {"S": "Alice M."},
+          "rating": {"N": "5"},
+          "title": {"S": "Best headphones I've owned"},
+          "comment": {"S": "Incredible noise cancellation. The battery easily lasts through my work week. Sound quality is pristine."},
+          "date": {"S": "2025-05-15"},
+          "verified_purchase": {"BOOL": true}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "PROD-001"},
+          "review_id": {"S": "REV-002"},
+          "customer_name": {"S": "Bob T."},
+          "rating": {"N": "4"},
+          "title": {"S": "Great but a bit heavy"},
+          "comment": {"S": "Sound quality is amazing. Noise cancellation works well. Only downside is they get a bit heavy after a few hours."},
+          "date": {"S": "2025-05-20"},
+          "verified_purchase": {"BOOL": true}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "PROD-002"},
+          "review_id": {"S": "REV-003"},
+          "customer_name": {"S": "Carol S."},
+          "rating": {"N": "5"},
+          "title": {"S": "Softest cotton ever"},
+          "comment": {"S": "This shirt is incredibly comfortable. The organic cotton feels premium. True to size."},
+          "date": {"S": "2025-06-01"},
+          "verified_purchase": {"BOOL": true}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "PROD-003"},
+          "review_id": {"S": "REV-004"},
+          "customer_name": {"S": "Dave R."},
+          "rating": {"N": "4"},
+          "title": {"S": "Keeps water cold all day"},
+          "comment": {"S": "Tested it on a hot summer day - ice was still there 20 hours later. Solid build quality."},
+          "date": {"S": "2025-05-28"},
+          "verified_purchase": {"BOOL": true}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "PROD-004"},
+          "review_id": {"S": "REV-005"},
+          "customer_name": {"S": "Eve L."},
+          "rating": {"N": "5"},
+          "title": {"S": "Perfect for coding"},
+          "comment": {"S": "The Cherry MX Blue switches give great tactile feedback. RGB lighting is customizable. A joy to type on."},
+          "date": {"S": "2025-06-03"},
+          "verified_purchase": {"BOOL": true}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "PROD-005"},
+          "review_id": {"S": "REV-006"},
+          "customer_name": {"S": "Frank W."},
+          "rating": {"N": "3"},
+          "title": {"S": "Good but runs small"},
+          "comment": {"S": "Comfortable for running but I recommend ordering half a size up. Cushioning is excellent."},
+          "date": {"S": "2025-06-02"},
+          "verified_purchase": {"BOOL": true}
+        }
+      }
+    }
+  ]
+}

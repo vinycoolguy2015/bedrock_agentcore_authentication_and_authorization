@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Operations Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="chat-screen">
+        <div class="card">
+            <div class="header">
+                <h1>Sales Operations Assistant</h1>
+                <p id="user-info" class="user-info">Signed in as ...</p>
+            </div>
+
+            <div class="tab-bar">
+                <button class="tab active" id="tab-agent" onclick="switchTab('agent')">Agent</button>
+                <button class="tab" id="tab-audit" onclick="switchTab('audit')">Audit log (<span id="audit-count">0</span>)</button>
+            </div>
+
+            <div id="panel-agent" class="panel">
+                <div id="chat-container" class="chat-container"></div>
+
+                <div id="quick-actions" class="quick-actions"></div>
+
+                <div class="input-area">
+                    <input
+                        id="message-input"
+                        type="text"
+                        placeholder="Ask the agent..."
+                        onkeydown="if(event.key==='Enter')sendMessage()"
+                        autofocus
+                    >
+                    <button id="send-btn" onclick="sendMessage()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="panel-audit" class="panel" style="display:none;">
+                <div class="audit-container">
+                    <table class="audit-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Tool</th>
+                                <th>Decision</th>
+                            </tr>
+                        </thead>
+                        <tbody id="audit-body"></tbody>
+                    </table>
+                    <p id="audit-empty" class="audit-empty">No audit entries yet. Send a message to see authorization decisions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

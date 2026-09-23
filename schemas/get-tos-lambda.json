@@ -1,0 +1,46 @@
+{
+  "tools": [
+    {
+      "name": "get_terms_of_service",
+      "description": "Retrieve Terms of Service conditions for AnyCompany. Specify the type to get details about Delivery, Payment, or Refund conditions.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of Terms of Service to retrieve. Must be one of: Delivery, Payment, or Refund."
+          }
+        },
+        "required": ["type"]
+      }
+    },
+    {
+      "name": "accept_terms_of_service",
+      "description": "Record that a user has accepted the current Terms of Service.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "The unique identifier of the user accepting the terms."
+          }
+        },
+        "required": ["user_id"]
+      }
+    },
+    {
+      "name": "check_terms_acceptance",
+      "description": "Check whether a specific user has accepted the Terms of Service.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "The unique identifier of the user to check."
+          }
+        },
+        "required": ["user_id"]
+      }
+    }
+  ]
+}

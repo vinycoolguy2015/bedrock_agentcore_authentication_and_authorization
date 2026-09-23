@@ -1,0 +1,81 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AnyCompany Inventory API",
+    "description": "API Gateway delivering Inventory information from external vendor.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "{apiGatewayUrl}",
+      "description": "Inventory API Gateway endpoint."
+    }
+  ],
+  "paths": {
+    "/inventory": {
+      "get": {
+        "operationId": "getInventory",
+        "summary": "Get inventory data",
+        "description": "Retrieve inventory data for all products or filter by product_id or status. Returns product stock levels, warehouse locations, and reorder thresholds.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "query",
+            "required": false,
+            "description": "Optional product ID to filter inventory for (e.g., PROD-001)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Optional status filter (IN_STOCK, LOW_STOCK, OUT_OF_STOCK)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "inventory": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/InventoryItem"
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InventoryItem": {
+        "type": "object",
+        "properties": {
+          "product_id": { "type": "string" },
+          "name": { "type": "string" },
+          "warehouse": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "reorder_threshold": { "type": "integer" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

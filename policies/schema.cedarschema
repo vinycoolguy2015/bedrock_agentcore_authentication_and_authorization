@@ -1,0 +1,36 @@
+{
+    "RetailAgent": {
+        "entityTypes": {
+            "User": {
+                "shape": {
+                    "type": "Record",
+                    "attributes": {
+                        "role": { "type": "String", "required": true },
+                        "department": { "type": "String", "required": true },
+                        "email": { "type": "String", "required": true }
+                    }
+                }
+            },
+            "Tool": {
+                "shape": {
+                    "type": "Record",
+                    "attributes": {
+                        "gateway": { "type": "String", "required": true }
+                    }
+                }
+            }
+        },
+        "actions": {
+            "InvokeTool": {
+                "appliesTo": {
+                    "principalTypes": ["User"],
+                    "resourceTypes": ["Tool"],
+                    "context": {
+                        "type": "Record",
+                        "attributes": {}
+                    }
+                }
+            }
+        }
+    }
+}
