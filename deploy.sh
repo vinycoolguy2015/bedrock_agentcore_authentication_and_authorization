@@ -443,6 +443,17 @@ deploy_agent() {
     fi
     save_output "AGENT_PROXY_API_ID" "$AGENT_PROXY_API_ID"
 
+    # Ensure Lambda permission exists (idempotent — handles re-runs)
+    aws lambda remove-permission --function-name "$AGENT_PROXY_LAMBDA_NAME" \
+        --statement-id "rest-api-invoke-${AGENT_PROXY_API_ID}" --region "$AWS_REGION" 2>/dev/null || true
+    aws lambda add-permission \
+        --function-name "$AGENT_PROXY_LAMBDA_NAME" \
+        --statement-id "rest-api-invoke-${AGENT_PROXY_API_ID}" \
+        --action lambda:InvokeFunction \
+        --principal apigateway.amazonaws.com \
+        --source-arn "arn:aws:execute-api:${AWS_REGION}:${ACCOUNT_ID}:${AGENT_PROXY_API_ID}/*" \
+        --region "$AWS_REGION" 2>/dev/null || true
+
     AGENT_ENDPOINT_URL="https://${AGENT_PROXY_API_ID}.execute-api.${AWS_REGION}.amazonaws.com/prod/invoke"
     save_output "AGENT_ENDPOINT_URL" "$AGENT_ENDPOINT_URL"
     log_success "Agent endpoint: ${AGENT_ENDPOINT_URL}"
